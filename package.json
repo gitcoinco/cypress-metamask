@@ -1,6 +1,6 @@
 {
   "name": "cypress-metamask",
-  "version": "1.0.5-development",
+  "version": "1.0.6-dev",
   "main": "support/commands.js",
   "license": "MIT",
   "keywords": [
@@ -42,6 +42,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CraftAcademyLabs/cypress-metamask.git"
+    "url": "https://github.com/gitcoinco/cypress-metamask.git"
   }
 }
