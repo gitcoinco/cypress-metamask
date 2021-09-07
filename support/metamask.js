@@ -107,35 +107,43 @@ module.exports = {
     setNetwork(network);
     await puppeteer.waitAndClick(mainPageElements.networkSwitcher.button);
     if (network === 'main' || network === 'mainnet') {
+      interactionLog('selecting mainnet')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(0),
       );
     } else if (network === 'ropsten') {
+      interactionLog('selecting ropsten')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(1),
       );
     } else if (network === 'kovan') {
+      interactionLog('selecting kovan')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(2),
       );
     } else if (network === 'rinkeby') {
+      interactionLog('selecting rinkeby')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(3),
       );
     } else if (network === 'goerli') {
+      interactionLog('selecting goerli')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(4),
       );
     } else if (network === 'localhost') {
+      interactionLog('selecting localhost')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(5),
       );
     } else if (typeof network === 'object') {
+      interactionLog(`selecting ${network.networkName}`)
       await puppeteer.waitAndClickByText(
         mainPageElements.networkSwitcher.dropdownMenuItem,
         network.networkName,
       );
     } else {
+      interactionLog(`selecting custom - ${network}`)
       await puppeteer.waitAndClickByText(
         mainPageElements.networkSwitcher.dropdownMenuItem,
         network,
