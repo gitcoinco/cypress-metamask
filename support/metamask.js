@@ -291,6 +291,11 @@ module.exports = {
     await puppeteer.assignWindows();
     await puppeteer.metamaskWindow().waitForTimeout(1000);
     await puppeteer.metamaskWindow().bringToFront()
+
+    // debugging - to be removed
+    console.log('url: ',puppeteer.metamaskWindow().url());
+    console.log('element: ', await puppeteer.metamaskWindow().$(unlockPageElements.unlockPage))
+
     if (
       (await puppeteer.metamaskWindow().$(unlockPageElements.unlockPage)) ===
       null
