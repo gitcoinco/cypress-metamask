@@ -292,17 +292,8 @@ module.exports = {
     await puppeteer.metamaskWindow().waitForTimeout(1000);
     await puppeteer.metamaskWindow().bringToFront()
 
-    // debugging - to be removed
-    console.log('url: ',puppeteer.metamaskWindow().url());
-    console.log('element: ', await puppeteer.metamaskWindow().$(unlockPageElements.unlockPage));
-    console.log('welcomePage: ', puppeteer.metamaskWindow().url().endsWith('welcome'));
-    // enddebugging
-
     if (puppeteer.metamaskWindow().url().endsWith('unlock')) {
       await module.exports.unlock(password);
-      walletAddress = await module.exports.getWalletAddress();
-      await puppeteer.switchToCypressWindow();
-      return true;
     } else {
       await module.exports.confirmWelcomePage();
       await module.exports.importWallet(secretWords, password);
@@ -311,10 +302,11 @@ module.exports = {
       } else {
         await module.exports.changeNetwork(network);
       }
-      walletAddress = await module.exports.getWalletAddress();
-      await puppeteer.switchToCypressWindow();
-      return true;
     }
+
+    walletAddress = await module.exports.getWalletAddress();
+    await puppeteer.switchToCypressWindow();
+    return true;
   },
   async disconnectWallet() {
     interactionLog('metamask disconnecting wallet')
