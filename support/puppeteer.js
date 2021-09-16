@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer-core');
 const fetch = require('node-fetch');
 
+const { interactionLog } = require('./helpers')
+
 let puppeteerBrowser;
 let mainWindow;
 let metamaskWindow;
@@ -16,6 +18,7 @@ module.exports = {
     return metamaskWindow;
   },
   async init() {
+    interactionLog('initializing puppeteer');
     const debuggerDetails = await fetch('http://localhost:9222/json/version'); //DevSkim: ignore DS137138
     const debuggerDetailsConfig = await debuggerDetails.json();
     const webSocketDebuggerUrl = debuggerDetailsConfig.webSocketDebuggerUrl;
@@ -28,6 +31,7 @@ module.exports = {
     return puppeteerBrowser.isConnected();
   },
   async assignWindows() {
+    interactionLog('puppeteer assigning windows');
     let pages = await puppeteerBrowser.pages();
     for (const page of pages) {
       if (page.url().includes('integration')) {
@@ -39,6 +43,7 @@ module.exports = {
     return true;
   },
   clearWindows() {
+    interactionLog('puppeteer clearing windows');
     mainWindow = null;
     metamaskWindow = null;
   },
@@ -54,14 +59,17 @@ module.exports = {
     };
   },
   async switchToCypressWindow() {
+    interactionLog('puppeteer switching to cypress window');
     await mainWindow.bringToFront();
     return true;
   },
   async switchToMetamaskWindow() {
+    interactionLog('puppeteer switching to metamask window')
     await metamaskWindow.bringToFront();
     return true;
   },
   async switchToMetamaskNotification() {
+    interactionLog('puppeteer switching to notification window')
     let pages = await puppeteerBrowser.pages();
     for (const page of pages) {
       if (page.url().includes('notification')) {

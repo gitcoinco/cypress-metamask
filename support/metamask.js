@@ -38,13 +38,13 @@ module.exports = {
     }
   },
   async changeAccount(number) {
-    interactionLog('changing account')
+    interactionLog('metamask changing account')
     await puppeteer.waitAndClick(mainPageElements.accountMenu.button)
     await puppeteer.changeAccount(number)
   },
 
   async importMetaMaskWalletUsingPrivateKey(key) {
-    interactionLog('importing wallet from private key')
+    interactionLog('metamask importing wallet from private key')
     await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
     await puppeteer.waitAndClickByText('.account-menu__item__text', 'Import Account');
     await puppeteer.waitAndType('#private-key-box', key);
@@ -55,29 +55,29 @@ module.exports = {
 },
 
   async confirmWelcomePage() {
-    interactionLog('confirming welcome page')
+    interactionLog('metamask confirming welcome page')
     await module.exports.fixBlankPage();
     await puppeteer.waitAndClick(welcomePageElements.confirmButton);
     return true;
   },
 
   async unlock(password) {
-    interactionLog('unlocking')
+    interactionLog('metamask unlocking')
     await module.exports.fixBlankPage();
     await puppeteer.waitAndType(unlockPageElements.passwordInput, password);
     await puppeteer.waitAndClick(unlockPageElements.unlockButton);
     return true;
   },
   async importWallet(secretWords, password) {
-    interactionLog('importing wallet')
+    interactionLog('metamask importing wallet')
     await puppeteer.waitAndClick(firstTimeFlowPageElements.importWalletButton);
     await puppeteer.waitAndClick(metametricsPageElements.optOutAnalyticsButton);
-    interactionLog('filling in secret words')
+    interactionLog('metamask filling in secret words')
     await puppeteer.waitAndType(
       firstTimeFlowFormPageElements.secretWordsInput,
       secretWords,
     );
-    interactionLog('filling in password')
+    interactionLog('metamask filling in password')
     await puppeteer.waitAndType(
       firstTimeFlowFormPageElements.passwordInput,
       password,
@@ -103,36 +103,36 @@ module.exports = {
     return true;
   },
   async changeNetwork(network) {
-    interactionLog('changing network')
+    interactionLog('metamask changing network')
     setNetwork(network);
     await puppeteer.waitAndClick(mainPageElements.networkSwitcher.button);
     if (network === 'main' || network === 'mainnet') {
-      interactionLog('selecting mainnet')
+      interactionLog('metamask selecting mainnet')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(0),
       );
     } else if (network === 'ropsten') {
-      interactionLog('selecting ropsten')
+      interactionLog('metamask selecting ropsten')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(1),
       );
     } else if (network === 'kovan') {
-      interactionLog('selecting kovan')
+      interactionLog('metamask selecting kovan')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(2),
       );
     } else if (network === 'rinkeby') {
-      interactionLog('selecting rinkeby')
+      interactionLog('metamask selecting rinkeby')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(3),
       );
     } else if (network === 'goerli') {
-      interactionLog('selecting goerli')
+      interactionLog('metamask selecting goerli')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(4),
       );
     } else if (network === 'localhost') {
-      interactionLog('selecting localhost')
+      interactionLog('metamask selecting localhost')
       await puppeteer.waitAndClick(
         mainPageElements.networkSwitcher.networkButton(5),
       );
@@ -165,7 +165,7 @@ module.exports = {
     return true;
   },
   async addNetwork(network) {
-    interactionLog('adding network')
+    interactionLog('metamask adding network')
     if (
       process.env.NETWORK_NAME &&
       process.env.RPC_URL &&
@@ -221,7 +221,7 @@ module.exports = {
     return true;
   },
   async acceptAccess() {
-    interactionLog('accepting access')
+    interactionLog('metamask accepting access')
     await puppeteer.metamaskWindow().waitForTimeout(3000);
     const notificationPage = await puppeteer.switchToMetamaskNotification();
     await puppeteer.waitAndClick(
@@ -236,7 +236,7 @@ module.exports = {
     return true;
   },
   async confirmTransaction() {
-    interactionLog('confirming transaction')
+    interactionLog('metamask confirming transaction')
     const isKovanTestnet = getNetwork().networkName === 'kovan';
     await puppeteer.metamaskWindow().waitForTimeout(3000);
     const notificationPage = await puppeteer.switchToMetamaskNotification();
@@ -262,7 +262,7 @@ module.exports = {
     return true;
   },
   async rejectTransaction() {
-    interactionLog('rejecting transaction')
+    interactionLog('metamask rejecting transaction')
     await puppeteer.metamaskWindow().waitForTimeout(3000);
     const notificationPage = await puppeteer.switchToMetamaskNotification();
     await puppeteer.waitAndClick(
@@ -273,7 +273,7 @@ module.exports = {
     return true;
   },
   async getWalletAddress() {
-    interactionLog('getting wallet address')
+    interactionLog('metamask getting wallet address')
     await puppeteer.waitAndClick(mainPageElements.options.button);
     await puppeteer.waitAndClick(mainPageElements.options.accountDetailsButton);
     walletAddress = await puppeteer.waitAndGetValue(
@@ -283,7 +283,7 @@ module.exports = {
     return walletAddress;
   },
   async initialSetup({ secretWords, network, password }) {
-    interactionLog('performing initial setup')
+    interactionLog('metamask performing initial setup')
     const isCustomNetwork =
       process.env.NETWORK_NAME && process.env.RPC_URL && process.env.CHAIN_ID;
 
@@ -313,7 +313,7 @@ module.exports = {
     }
   },
   async disconnectWallet() {
-    interactionLog('disconnecting wallet')
+    interactionLog('metamask disconnecting wallet')
     await puppeteer.switchToMetamaskWindow();
 
     await puppeteer.waitAndClick(mainPageElements.options.button);

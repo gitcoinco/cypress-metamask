@@ -87,7 +87,7 @@ module.exports = {
     return metamaskDirectory;
   },
   interactionLog(message) {
-    let verboseFlag = process.env['VERBOSE']
+    const verboseFlag = process.env['VERBOSE']
     const verboseMode = parseInt(verboseFlag) || verboseFlag === 'true';
     if (verboseMode) {
       console.log(message);
