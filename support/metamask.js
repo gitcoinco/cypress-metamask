@@ -292,9 +292,7 @@ module.exports = {
     await puppeteer.metamaskWindow().waitForTimeout(1000);
     await puppeteer.metamaskWindow().bringToFront()
 
-    if (puppeteer.metamaskWindow().url().endsWith('unlock')) {
-      await module.exports.unlock(password);
-    } else {
+    if (puppeteer.metamaskWindow().url().endsWith('welcome')) {
       await module.exports.confirmWelcomePage();
       await module.exports.importWallet(secretWords, password);
       if (isCustomNetwork) {
@@ -302,6 +300,8 @@ module.exports = {
       } else {
         await module.exports.changeNetwork(network);
       }
+    } else {
+      await module.exports.unlock(password);
     }
 
     walletAddress = await module.exports.getWalletAddress();
